@@ -1,0 +1,94 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion 31
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+        //可选配置
+        //你可以在你的 module 层级的 build.gradle 文件中的 defaultConfig {} 代码块中，
+        // 添加 externalNativeBuild {} 代码块，为 CMake 或 ndk-build 配置一些额外参数。
+        // 当然，你也可以在你的构建配置中的其他每一个生产渠道重写这些属性
+
+        //如果你想控制 Gradle 构建、依赖你希望的东西，你就需要在 defaultConfig.externalNativeBuild.cmake {} 代码块
+
+        // This block is different from the one you use to link Gradle to your CMake or ndk-build script.
+        externalNativeBuild {
+            // For ndk-build, instead use ndkBuild {}
+            cmake {
+                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+
+                // Passes optional arguments to CMake.
+                arguments "-DCMAKE_VERBOSE_MAKEFILE=TRUE"
+                // Sets optional flags for the C compiler.
+                cFlags "-D_EXAMPLE_C_FLAG1", "-D_EXAMPLE_C_FLAG2"
+                // Sets a flag to enable format macro constants for the C++ compiler.
+                cppFlags "-D__STDC_FORMAT_MACROS"
+            }
+        }
+        //大多数情况，你只需要像上面的代码那样，在 ndk {} 代码块中指定 abiFilters 即可
+        //指定abi
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your APK.
+            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    //1.Android Studio 的图形化界面来将 Gradle 与外部 CMake 或者 ndk-build 项目关联起来
+    //#1.打开 IDE 左边的 Project 面板，选择 Android 视图。
+    //#2.右键点击你想链接本地库的 module，比如 app module，然后从菜单中选择 Link C++ Project with Gradle。你应该能看见一个和下图很像的对话框。
+    //#3.在下拉菜单中，选择 CMake 或者 ndk-build。
+    //#  a. 如果你选择 CMake，需要在 Project Path 中指定 CMakeLists.txt 脚本文件的路径。
+    //#  b. 如果你选择 ndk-build，你需要在 Project Path 中指定 Android.mk 脚本文件的路径
+
+    //2.手动配置 Gradle
+    //如果要手动将 Gradle 与你的本地库相关联，你需要在 module 层级的 build.gradle 文件中添加 externalNativeBuild {} 代码块，
+    // 并且在该代码块中配置 cmake {} 或 ndkBuild {}
+
+    //Encapsulates your external native build configurations.
+    externalNativeBuild {
+        // Encapsulates your CMake build configurations.
+        cmake {
+            // Provides a relative path to your CMake build script.
+            path "CMakeLists.txt"
+        }
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
