@@ -60,7 +60,7 @@ void getContentFromFile() {
     char buffer[1024];
     //底层，如果到达文件尾返回非0值，否则返回0
     while (!infile.eof()) {
-        infile.getline(buffer, 100);
+        infile.getline(buffer, 1024);
         LOGE("循环获取内容,size = %d  content= %s", strlen(buffer), buffer);
         str.append(buffer);
     }

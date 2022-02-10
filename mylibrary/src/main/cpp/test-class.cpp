@@ -64,6 +64,7 @@ TestClass::TestClass(const TestClass &obj) {
  * 请注意：printAddress() 不是任何类的成员函数
  */
 void printAddress(TestClass testClass) {
+    LOGE("调用了友元函数，打印用户地址 %s", testClass.address.c_str());
     LOGE("调用了友元函数，打印用户地址 %s", testClass.getAddress().c_str());
 }
 

@@ -237,7 +237,7 @@ protected:
     int b;
 };
 
-class C : virtual public A, virtual public B { //这个继承会使D创建两个对象(没有使用虚拟继承格式)
+class C : virtual public A, virtual public B { //这个继承会使D创建两个对象(没有使用虚拟继承格式的情况下)
 public:
     C() {}
 
@@ -300,7 +300,8 @@ public:
 };
 
 /**
- * 定义TestClass的友元类BigBox
+ * 定义TestClass的友元类BigBox, BigBox需要在TestClass中声明为友元类，此时整个类及其所有成员都是友元
+ *
  */
 class BigBox {
 public :

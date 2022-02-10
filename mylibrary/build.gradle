@@ -82,6 +82,45 @@ android {
     }
 }
 
+apply plugin: 'maven-publish'
+
+ext {
+    VERSION_NAME = '3.0.0-rc.2-test'
+    GROUP = 'cn.huolala.wp.glog.android'
+
+    POM_DESCRIPTION = 'Glog android sdk'
+    POM_NAME = 'Glog android sdk'
+    POM_ARTIFACT_ID = 'glog-android'
+    POM_PACKAGING = 'aar'
+}
+
+afterEvaluate {
+    publishing {
+        components.each { component ->
+            if (component.name.toLowerCase().contains("release")) {
+                publications.create(component.name, MavenPublication) {
+                    from components[component.name]
+
+                    groupId = project.ext.GROUP
+                    artifactId = project.ext.POM_ARTIFACT_ID + (component.name.toLowerCase().contains('static') ? '-static' : '')
+                    version = project.ext.VERSION_NAME
+                }
+            }
+        }
+        repositories {
+            maven {
+                name = 'hllNexus'
+                url = RELEASE_REPOSITORY_URL
+                credentials {
+                    password = NEXUS_PASSWORD
+                    username = NEXUS_USERNAME
+                }
+            }
+        }
+    }
+}
+
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

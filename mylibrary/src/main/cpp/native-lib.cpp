@@ -209,7 +209,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testInterface(JNIEnv *env, jobject /* this 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_writeContentToFile(JNIEnv *env, jobject /* this */) {
     string str = "文件和流";
-    writeContentToFile("我是测试数据deded我是测试\n数据deded我是测试数据deded我是\n测试数据deded我是测试数据deded我\n是测试数据deded我是测试数"
+    writeContentToFile("123我是测试数据deded我是测试\n数据deded我是测试数据deded我是\n测试数据deded我是测试数据deded我\n是测试数据deded我是测试数"
                        "据deded我是测试数据deded\n我是测试数据deded我是测试数据d\neded我是测试数据deded我是测试数据deded我\n是测试数据deded我是测试数据deded我是测试数据deded"
                        "externalCacheDir?.patexter\nnalCacheDir?.patexternalC\nacheDir?.patexternalCacheDir?.patexternalCacheDir?.pat\nexternalCacheDir?.patextern\nalCacheDir?.patexternalCacheDir?.pat"
                        "externalCacheDir?.patexternal\nCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexter\nnalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.pat"
@@ -220,7 +220,7 @@ Java_cn_huolala_mylibrary_Arithmetic_writeContentToFile(JNIEnv *env, jobject /* 
                        "我是测试数据deded我是\n测试数据deded我是测试数据\ndeded我是测试数据deded我是测试数\n据deded我是测试数据deded我是测试数"
                        "据deded我是测试数据deded我是测\n试数据deded我是测试数据de\nded我是测试数据deded我是测试数据\ndeded我是测试数据ded\ned我是测试数据deded我\n是测试数据deded"
                        "externalCacheDir?.patexte\nrnalCacheDir?.patexternalCacheDi\nr?.patexternalCacheDir?.patexternalCacheD\nir?.patexternalCacheDir?.patexternalCac\nheDir?.patexternalCacheDir?.pat"
-                       "externalCacheDir?.pat\nexternalCacheDir?.patex\nternalCacheDir?.patexternalCa\n");
+                       "externalCacheDir?.pat\nexternalCacheDir?.patex\nternalCacheDir?.patexternalCa123\n");
 
     getContentFromFile();
     return env->NewStringUTF(str.c_str());
