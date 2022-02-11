@@ -38,6 +38,7 @@ void testPointer() {
     char char1[80] = {'a', 'b', 'c', 'd', 'e', 'f'};
     char char2[] = {'a', 'b', 'c', 'd', 'e', 'f'};
     char char3[] = "123456";
+    LOGE("char2 = %s ", char2); //char2的结果; 如果此时计算长度strlen(char2) 会报错; 但是计算strlen(char1)却不会
     LOGE("strcat(char1,char3) = %s", strcat(char1, char3)); //拼接
     LOGE("char1 = %s length = %d", char1, strlen(char1)); //拼接之后，char1的结果及长度
     LOGE("strcat(char1,char2) = %s", strcat(char1, char2)); //拼接
