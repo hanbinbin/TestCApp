@@ -105,6 +105,10 @@ public final class Arithmetic {
         return writeContentToFile();
     }
 
+    public static String getCharAndString() {
+        return charAndString();
+    }
+
     public static void getTestJavaTraverse() {
         int a_a = 0;
         //c++ 计算一亿次所用时间
@@ -163,4 +167,6 @@ public final class Arithmetic {
     private static native String testInterface();
 
     private static native String writeContentToFile();
+
+    private static native String charAndString();
 }
