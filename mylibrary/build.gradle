@@ -112,8 +112,8 @@ afterEvaluate {
                 name = 'hllNexus'
                 url = RELEASE_REPOSITORY_URL
                 credentials {
-                    password = NEXUS_PASSWORD
-                    username = NEXUS_USERNAME
+                    password = "NEXUS_PASSWORD"
+                    username = "NEXUS_USERNAME"
                 }
             }
         }
