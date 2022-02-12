@@ -2,6 +2,7 @@
 // Created by binbinHan on 1/25/22.
 //
 #include <jni.h>
+#include <vector>
 #include <string>
 #include "file-stream.h"
 #include "log.h"
@@ -57,15 +58,39 @@ void getContentFromFile() {
     if (!infile.is_open()) {
         return;
     }
-    char buffer[1024];
-    //底层，如果到达文件尾返回非0值，否则返回0
-    while (!infile.eof()) {
-        infile.getline(buffer, 1024);
-        LOGE("循环获取内容,size = %d  content= %s", strlen(buffer), buffer);
-        str.append(buffer);
+
+//    //第一种读取文件内容(按行读取)
+//    char buffer[1024];
+//    //底层，如果到达文件尾返回非0值，否则返回0
+//    while (!infile.eof()) {
+//        infile.getline(buffer, 1024);
+//        LOGE("循环获取内容,size = %d  content= %s", strlen(buffer), buffer);
+//        str.append(buffer);
+//    }
+//    infile.close();
+//    LOGE("从文件中获取的内容，%s", str.c_str()); // 因为"%s"要求后面的对象的首地址
+
+//    //第二种读取文件内容
+//    //底层，如果到达文件尾返回非0值，否则返回0
+//    string current;
+//    while (getline(infile, current)) {
+//        LOGE("循环获取内容,size = %d  content= %s", strlen(current.c_str()), current.c_str());
+//        str.append(current); //此处可以换成 vector<string> content;  content.push_back(str);
+//    }
+//    infile.close();
+//    LOGE("从文件中获取的内容，%s", str.c_str()); // 因为"%s"要求后面的对象的首地址
+
+    //第三种读取文件内容
+    vector<string> content;
+    while (infile >> str) {
+        content.push_back(str);
     }
     infile.close();
-    LOGE("从文件中获取的内容，%s", str.c_str()); // 因为"%s"要求后面的对象的首地址
+    LOGE("从文件中获取的内容vector长度，%d", content.size());
+    for (auto &i : content) {
+        LOGE("从文件中获取的内容，%s", i.c_str()); // 因为"%s"要求后面的对象的首地址
+    }
+
 }
 
 /**
@@ -73,7 +98,7 @@ void getContentFromFile() {
  * @param content
  */
 void writeContentToFile(string content) {
-    //string 转 char
+    //string 转 char 下面两种方式都可以
     char *data;
 //    data = const_cast<char *>(content.c_str());
     data = (char *) content.c_str();
@@ -84,7 +109,7 @@ void writeContentToFile(string content) {
         return;
     }
     outfile << "开始写入数据\n";
-    outfile << data;
+    outfile << data; //或者直接使用 outfile << content
     outfile << "结束写入数据\n";
     outfile.close();
 }
