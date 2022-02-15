@@ -109,6 +109,18 @@ public final class Arithmetic {
         return charAndString();
     }
 
+    public static String getPlaceHolder() {
+        return placeHolder();
+    }
+
+    public static String getTestException() {
+        return testException();
+    }
+
+    public static String getTestDynamicRAM() {
+        return testDynamicRAM();
+    }
+
     public static void getTestJavaTraverse() {
         int a_a = 0;
         //c++ 计算一亿次所用时间
@@ -169,4 +181,10 @@ public final class Arithmetic {
     private static native String writeContentToFile();
 
     private static native String charAndString();
+
+    private static native String placeHolder();
+
+    private static native String testException();
+
+    private static native String testDynamicRAM();
 }

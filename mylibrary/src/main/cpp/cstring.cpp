@@ -9,6 +9,11 @@
 using namespace std;
 
 void charAndString() {
+    char a = 'a';
+    char b = 97;
+    LOGE("打印char单个字符, a= %c  b= %c", a, b);
+    LOGE("打印char单个字符对应的值, a= %d  b= %d", a, b);
+
     char chars1[] = {'a', 'b', 'c', 'd', 'e', 'f'};
     char chars2[9] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     char chars3[] = "qqqqqqqq";
@@ -25,9 +30,9 @@ void charAndString() {
     str = chars3;
     LOGE("测试字符串,size = %d  content= %s", strlen(str.c_str()), str.c_str());
 
-    int a(12);
-    int b = 12;
-    LOGE("测试基本类型变量定义, a= %d  b= %d", a, b);
+    int c(12);
+    int d = 12;
+    LOGE("测试基本类型变量定义, c= %d  d= %d", c, d);
 
     //测试noexcept
 //    testNoException();

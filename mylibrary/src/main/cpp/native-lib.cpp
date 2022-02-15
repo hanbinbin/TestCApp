@@ -17,6 +17,9 @@
 #include "test-class.h"
 #include "file-stream.h"
 #include "cstring.h"
+#include "place-holder.h"
+#include "exception.h"
+#include "dynamic-ram.h"
 
 
 int al_a;
@@ -62,7 +65,7 @@ Java_cn_huolala_mylibrary_Arithmetic_stringFromJNI(JNIEnv *env, jobject /* this 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_getPointerValue(JNIEnv *env, jobject /* this */) {
     string str = "pointer 对应的值";
-    testPointer();
+//    testPointer();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -70,7 +73,7 @@ Java_cn_huolala_mylibrary_Arithmetic_getPointerValue(JNIEnv *env, jobject /* thi
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testNullPointer(JNIEnv *env, jobject /* this */) {
     string str = "测试空指针";
-    nullPointer();
+//    nullPointer();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -79,7 +82,7 @@ const int MAX = 3;
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testPointerAndArray(JNIEnv *env, jobject /* this */) {
     string str = "指针的算术运算";
-    pointerAndArray();
+//    pointerAndArray();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -88,7 +91,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testPointerAndArray(JNIEnv *env, jobject /*
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testPointerToPointer(JNIEnv *env, jobject /* this */) {
     string str = "指向指针的指针";
-    pointerToPointer();
+//    pointerToPointer();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -106,7 +109,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testPointerToFunction(JNIEnv *env, jobject 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testFunctionReturnPointer(JNIEnv *env, jobject /* this */) {
     string str = "从函数返回指针";
-    functionReturnPointer();
+//    functionReturnPointer();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -114,7 +117,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testFunctionReturnPointer(JNIEnv *env, jobj
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testReference(JNIEnv *env, jobject /* this */) {
     string str = "测试引用";
-    reference();
+//    reference();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -122,7 +125,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testReference(JNIEnv *env, jobject /* this 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testReferenceParam(JNIEnv *env, jobject /* this */) {
     string str = "把引用作为参数";
-    referenceParam();
+//    referenceParam();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -130,7 +133,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testReferenceParam(JNIEnv *env, jobject /* 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testFunctionReturnReference(JNIEnv *env, jobject /* this */) {
     string str = "从函数返回引用";
-    functionReturnReference();
+//    functionReturnReference();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -138,7 +141,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testFunctionReturnReference(JNIEnv *env, jo
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testDateAndTime(JNIEnv *env, jobject /* this */) {
     string str = "时期和时间";
-    dateAndTime();
+//    dateAndTime();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -161,7 +164,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testTraverse(JNIEnv *env, jobject /* this *
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testStruct(JNIEnv *env, jobject /* this */) {
     string str = "测试数据结构";
-    testStruct();
+//    testStruct();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -170,7 +173,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testStruct(JNIEnv *env, jobject /* this */)
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testTypeDef(JNIEnv *env, jobject /* this */) {
     string str = "定义新的数据类型";
-    testTypeDef();
+//    testTypeDef();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -178,7 +181,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testTypeDef(JNIEnv *env, jobject /* this */
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testDefineClassObject(JNIEnv *env, jobject /* this */) {
     string str = "C++ 类&对象";
-    defineClassObject();
+//    defineClassObject();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -186,7 +189,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testDefineClassObject(JNIEnv *env, jobject 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testPolymorphism(JNIEnv *env, jobject /* this */) {
     string str = "测试多态";
-    testPolymorphism();
+//    testPolymorphism();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -194,7 +197,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testPolymorphism(JNIEnv *env, jobject /* th
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testPackage(JNIEnv *env, jobject /* this */) {
     string str = "测试封装";
-    testPackage();
+//    testPackage();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -202,7 +205,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testPackage(JNIEnv *env, jobject /* this */
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testInterface(JNIEnv *env, jobject /* this */) {
     string str = "接口编程";
-    testInterface();
+//    testInterface();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -210,34 +213,11 @@ Java_cn_huolala_mylibrary_Arithmetic_testInterface(JNIEnv *env, jobject /* this 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_writeContentToFile(JNIEnv *env, jobject /* this */) {
     string str = "文件和流";
-//    writeContentToFile(
-//            "123我是测试数据deded我是测试\n数据deded我是测试数据deded我是\n测试数据deded我是测试数据deded我\n是测试数据deded我是测试数"
-//            "据deded我是测试数据deded\n我是测试数据deded我是测试数据d\neded我是测试数据deded我是测试数据deded我\n是测试数据deded我是测试数据deded我是测试数据deded"
-//            "externalCacheDir?.patexter\nnalCacheDir?.patexternalC\nacheDir?.patexternalCacheDir?.patexternalCacheDir?.pat\nexternalCacheDir?.patextern\nalCacheDir?.patexternalCacheDir?.pat"
-//            "externalCacheDir?.patexternal\nCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexter\nnalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.pat"
-//            "我是测试数据dede\nd我是测试数据deded我是测试数据de\nded我是测试数据deded我是测\n试数据deded我是测试数据deded我是测试数"
-//            "据deded我是测试数据deded我是测试\n数据deded我是测试数据deded我是测试数\n据deded我是测试数据deded我是测试\n数据deded我是测试数据deded我是测试数据deded"
-//            "externalCacheDir?.patexternalCacheDir?.\npatexternalCacheDir?.patex\nternalCacheDir?.patexternalCacheDir?.patexter\nnalCacheDir?.patexternalCacheDvir?.patexternalCacheDir?.pat"
-//            "externalCacheDir?.patexternalCacheD\nir?.patexternalCacheDir?.patexternalCacheDir?.patexternalC\nacheDir?.patexternalCacheDir?.patexternalCacheDir?.pat"
-//            "我是测试数据deded我是\n测试数据deded我是测试数据\ndeded我是测试数据deded我是测试数\n据deded我是测试数据deded我是测试数"
-//            "据deded我是测试数据deded我是测\n试数据deded我是测试数据de\nded我是测试数据deded我是测试数据\ndeded我是测试数据ded\ned我是测试数据deded我\n是测试数据deded"
-//            "externalCacheDir?.patexte\nrnalCacheDir?.patexternalCacheDi\nr?.patexternalCacheDir?.patexternalCacheD\nir?.patexternalCacheDir?.patexternalCac\nheDir?.patexternalCacheDir?.pat"
-//            "externalCacheDir?.pat\nexternalCacheDir?.patex\nternalCacheDir?.patexternalCa123\n");
-    writeContentToFile(
-            "123我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数"
-            "据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded"
-            "externalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.pat"
-            "externalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.pat"
-            "我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数"
-            "据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded"
-            "externalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDvir?.patexternalCacheDir?.pat"
-            "externalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.pat"
-            "我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数"
-            "据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded我是测试数据deded"
-            "externalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.pat"
-            "externalCacheDir?.patexternalCacheDir?.patexternalCacheDir?.patexternalCa123\n");
 
-    getContentFromFile();
+//    writeContentToFile(
+//            "123deded我是测试数据\n");
+//
+//    getContentFromFile();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -245,6 +225,30 @@ Java_cn_huolala_mylibrary_Arithmetic_writeContentToFile(JNIEnv *env, jobject /* 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_charAndString(JNIEnv *env, jobject /* this */) {
     string str = "测试字符串";
-    charAndString();
+//    charAndString();
+    return env->NewStringUTF(str.c_str());
+}
+
+//测试占位符
+extern "C" JNIEXPORT jstring JNICALL
+Java_cn_huolala_mylibrary_Arithmetic_placeHolder(JNIEnv *env, jobject /* this */) {
+    string str = "测试占位符";
+//    testPlaceHolder();
+    return env->NewStringUTF(str.c_str());
+}
+
+//测试异常
+extern "C" JNIEXPORT jstring JNICALL
+Java_cn_huolala_mylibrary_Arithmetic_testException(JNIEnv *env, jobject /* this */) {
+    string str = "测试异常";
+//    testException();
+    return env->NewStringUTF(str.c_str());
+}
+
+//测试动态内存
+extern "C" JNIEXPORT jstring JNICALL
+Java_cn_huolala_mylibrary_Arithmetic_testDynamicRAM(JNIEnv *env, jobject /* this */) {
+    string str = "测试动态内存";
+    testDynamicRAM();
     return env->NewStringUTF(str.c_str());
 }
