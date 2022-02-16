@@ -7,4 +7,6 @@
 
 void charAndString();
 
+void testNoException() noexcept;
+
 #endif //TESTCAPP_CSTRING_H

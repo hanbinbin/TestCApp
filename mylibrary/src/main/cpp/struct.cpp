@@ -11,7 +11,7 @@
 
 void testStruct() {
     //第一种方式定义结构体
-    Person person1{};
+    Person person1{}; //或者  Person person1
     person1.age = 28;
     person1.address = "河南省郑州市";
     person1.name = "张三";
