@@ -100,14 +100,14 @@ using namespace std;
  *构造函数
  */
 TestDynamicRam::TestDynamicRam() {
-    LOGE("TestDynamicRam 的构造函数被调用");
+    LOGD("------------TestDynamicRam构造函数被调用, %p", this);
 }
 
 /**
  * 析构函数
  */
 TestDynamicRam::~TestDynamicRam() {
-    LOGE("TestDynamicRam 的析构函数被调用");
+    LOGD("-------------TDestDynamicRam析构函数被调用，%p", this);
 }
 
 void testDynamicRAM() {
@@ -144,7 +144,7 @@ void testDynamicRAM() {
     //给数组元素赋值
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            p[i][j] = i * j;
+            p[i][j] = (i + 1) * (j + 1);
         }
     }
     //打印数据
@@ -175,7 +175,7 @@ void testDynamicRAM() {
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             for (int h = 0; h < c; h++) {
-                pointer[i][j][h] = i * j * h;
+                pointer[i][j][h] = (i + 1) * (j + 1) * (h + 1);
             }
         }
     }
@@ -197,11 +197,11 @@ void testDynamicRAM() {
     delete[] pointer;
 
     //测试自定义对象动态分配内存
-//    TestDynamicRam *testDynamicRam = new TestDynamicRam();
-//    delete testDynamicRam; //删除对象
+    TestDynamicRam *testDynamicRam = new TestDynamicRam();
+    delete testDynamicRam; //删除对象
 
-    //如果要为一个包含四个 TestDynamicRam 对象的数组分配内存，构造函数将被调用 3 次，同样地，当删除这些对象时，析构函数也将被调用相同的次数（3次）
-    TestDynamicRam *testDynamicRam1 = new TestDynamicRam[3];
+    //如果要为一个包含四个 TestDynamicRam 对象的数组分配内存，构造函数将被调用 4 次，同样地，当删除这些对象时，析构函数也将被调用相同的次数（4次）
+    TestDynamicRam *testDynamicRam1 = new TestDynamicRam[4];
     delete[] testDynamicRam1; //删除数组
 }
 

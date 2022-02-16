@@ -121,6 +121,10 @@ public final class Arithmetic {
         return testDynamicRAM();
     }
 
+    public static String getTestNameSpace() {
+        return testNameSpace();
+    }
+
     public static void getTestJavaTraverse() {
         int a_a = 0;
         //c++ 计算一亿次所用时间
@@ -187,4 +191,6 @@ public final class Arithmetic {
     private static native String testException();
 
     private static native String testDynamicRAM();
+
+    private static native String testNameSpace();
 }

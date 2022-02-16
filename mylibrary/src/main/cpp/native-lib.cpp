@@ -20,6 +20,7 @@
 #include "place-holder.h"
 #include "exception.h"
 #include "dynamic-ram.h"
+#include "test-namespace.h"
 
 
 int al_a;
@@ -250,5 +251,13 @@ extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testDynamicRAM(JNIEnv *env, jobject /* this */) {
     string str = "测试动态内存";
     testDynamicRAM();
+    return env->NewStringUTF(str.c_str());
+}
+
+//测试命名空间
+extern "C" JNIEXPORT jstring JNICALL
+Java_cn_huolala_mylibrary_Arithmetic_testNameSpace(JNIEnv *env, jobject /* this */) {
+    string str = "测试命名空间";
+    testNameSpace();
     return env->NewStringUTF(str.c_str());
 }
