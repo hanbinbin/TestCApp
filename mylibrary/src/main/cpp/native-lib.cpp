@@ -16,7 +16,7 @@
 #include "typedef.h"
 #include "test-class.h"
 #include "file-stream.h"
-#include "string.h"
+#include "cstring.h"
 
 
 int al_a;

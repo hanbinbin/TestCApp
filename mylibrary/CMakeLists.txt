@@ -27,7 +27,7 @@ add_library( # Specifies the name of the library.
         src/main/cpp/pointer-array.cpp
         src/main/cpp/time-date.cpp
         src/main/cpp/reference.cpp
-        src/main/cpp/string.cpp
+        src/main/cpp/cstring.cpp
         src/main/cpp/struct.cpp
         src/main/cpp/typedef.cpp
         src/main/cpp/test-class.cpp
