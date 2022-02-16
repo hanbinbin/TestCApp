@@ -72,7 +72,7 @@ namespace nameSp3 {
  * 定义命名空间nameSp4
  */
 namespace nameSp4 {
-    int a = 100;
+    int a = 200;
 
     void func4() {
         LOGE("invoke namespace nameSp4 func4");
@@ -81,7 +81,7 @@ namespace nameSp4 {
      * 命名空间嵌套 nameSp5
      */
     namespace nameSp5 {
-        int a = 200;
+        int a = 100;
 
         void func5() {
             LOGE("invoke namespace nameSp5 func5");
@@ -97,7 +97,18 @@ void TestNameSpace::play(int a) {
     LOGE("invoke namespace testNameSpace play(%d)", a);
 }
 
+/**
+ *  ①. 全局变量编译器会赋初值，局部变量则需要自己初始化，否则编译器报错；
+　  ②. 全局变量整型赋值系统赋初值为0，其他数值类型（float、long、double）应该都是，而char和string类型系统赋初值分别为’\0’空字符，即ASCII码0，而string是空字符串”“。
+　  ③. 静态变量无论全局还是局部，编译器都会赋初始值，值为多少由变量类型决定。
+ */
 int a = 300;
+int b;//默认为0
+char c; //默认为0
+float d; //默认为0.000000
+float e; //默认为0.000000
+string str; //默认值为""
+static int g;//默认为0
 
 using namespace nameSp1;//声明当前文件使用命名空间
 using nameSp2::func21; //指定命名空间中的特定项目
@@ -123,7 +134,23 @@ void testNameSpace() {
     LOGE("a = %d", nameSp4::a);
     LOGE("a = %d", nameSp4::nameSp5::a);
 
+    //可以看到，test-namespace1.h 和 test-namespace2.h 文件中都定义有 TestNameSpace 命名空间，当这 2 个头文件被引入到 test-namespace.cpp 文件中时，
+    //意味着 TestNameSpace 空间中同时包含 play()、play(int a) 以及 num 这 3 个成员。也就是说，分散在不同文件中的同名命名空间会合并为一个。
+    //再次强调，虽然同一项目的不同文件中可以定义相同的命名空间，但必须保证空间中的成员互不相同，否则编译器会报“重定义”错误。
+    //注意，这里的 display() 和 display(int n) 并不会造成重定义，它们互为重载函数
     play();
     play(110);
     LOGE("num = %d", num);
+
+    //测试全局变量，静态变量
+    int h; //默认为空，需要自己初始化
+    static int i; //默认为0
+    LOGE("b = %d", b);
+    LOGE("c = %d", c);
+    LOGE("d = %f", d);
+    LOGE("e = %f", e);
+    LOGE("str = %s", str.c_str());
+//    LOGE("h = %d", h); //注释报错
+    LOGE("g = %d", g);
+    LOGE("i = %d", i);
 }
