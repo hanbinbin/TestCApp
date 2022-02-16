@@ -21,6 +21,7 @@
 #include "exception.h"
 #include "dynamic-ram.h"
 #include "test-namespace.h"
+#include "test-define.h"
 
 
 int al_a;
@@ -226,7 +227,7 @@ Java_cn_huolala_mylibrary_Arithmetic_writeContentToFile(JNIEnv *env, jobject /* 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_charAndString(JNIEnv *env, jobject /* this */) {
     string str = "测试字符串";
-    charAndString();
+//    charAndString();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -250,7 +251,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testException(JNIEnv *env, jobject /* this 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testDynamicRAM(JNIEnv *env, jobject /* this */) {
     string str = "测试动态内存";
-    testDynamicRAM();
+//    testDynamicRAM();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -258,6 +259,14 @@ Java_cn_huolala_mylibrary_Arithmetic_testDynamicRAM(JNIEnv *env, jobject /* this
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testNameSpace(JNIEnv *env, jobject /* this */) {
     string str = "测试命名空间";
-    testNameSpace();
+//    testNameSpace();
+    return env->NewStringUTF(str.c_str());
+}
+
+//测试预处理器
+extern "C" JNIEXPORT jstring JNICALL
+Java_cn_huolala_mylibrary_Arithmetic_testDefine(JNIEnv *env, jobject /* this */) {
+    string str = "测试预处理器";
+    testDefine();
     return env->NewStringUTF(str.c_str());
 }
