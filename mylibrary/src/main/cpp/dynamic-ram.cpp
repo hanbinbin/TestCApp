@@ -110,6 +110,30 @@ TestDynamicRam::~TestDynamicRam() {
     LOGD("-------------TDestDynamicRam析构函数被调用，%p", this);
 }
 
+/**
+ * 通常情况下，在头文件中声明一个命名空间。 如果函数实现位于一个单独的文件中，则限定函数名称，如本示例所示。
+    //contosoData.h
+    namespace ContosoDataServer{
+        void Foo();
+        int Bar();
+    }
+
+    Contosodata.cpp中的函数实现应使用完全限定的名称，即使你将 using 指令放在文件顶部：
+    #include "contosodata.h"
+    using namespace ContosoDataServer;
+    void ContosoDataServer::Foo(){ // use fully-qualified name here
+       // no qualification needed for Bar()
+       Bar();
+    }
+
+    int ContosoDataServer::Bar(){
+    return 0;
+    }
+ */
+void TestNameSpace::play(int a, int b) {
+    LOGE("invoke namespace TestNameSpace play(%d , %d)", a, b);
+}
+
 void testDynamicRAM() {
     //测试extern关键字，extern_a已经在place-holder.cpp文件内定义了，
     LOGE("testDynamicRAM里面测试extern关键字: %d", extern_a);

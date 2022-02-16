@@ -6,6 +6,7 @@
 #include "test-namespace.h"
 #include "test-namespace1.h"
 #include "test-namespace2.h"
+#include "dynamic-ram.h" //想使用TestNameSpace命名空间下的 play(int a, int b) 方法，这个方法在dynamic-ram.cpp里面实现,如果未实现，则会报错：undefined reference to `TestNameSpace::play(int, int)'
 #include "log.h"
 
 using namespace std;
@@ -89,12 +90,32 @@ namespace nameSp4 {
     }
 }
 
+/**
+ * 通常情况下，在头文件中声明一个命名空间。 如果函数实现位于一个单独的文件中，则限定函数名称，如本示例所示。
+    //contosoData.h
+    namespace ContosoDataServer{
+        void Foo();
+        int Bar();
+    }
+
+    Contosodata.cpp中的函数实现应使用完全限定的名称，即使你将 using 指令放在文件顶部：
+    #include "contosodata.h"
+    using namespace ContosoDataServer;
+    void ContosoDataServer::Foo(){ // use fully-qualified name here
+       // no qualification needed for Bar()
+       Bar();
+    }
+
+    int ContosoDataServer::Bar(){
+    return 0;
+    }
+ */
 void TestNameSpace::play() {
-    LOGE("invoke namespace testNameSpace play");
+    LOGE("invoke namespace TestNameSpace play");
 }
 
 void TestNameSpace::play(int a) {
-    LOGE("invoke namespace testNameSpace play(%d)", a);
+    LOGE("invoke namespace TestNameSpace play(%d)", a);
 }
 
 /**
@@ -134,12 +155,13 @@ void testNameSpace() {
     LOGE("a = %d", nameSp4::a);
     LOGE("a = %d", nameSp4::nameSp5::a);
 
-    //可以看到，test-namespace1.h 和 test-namespace2.h 文件中都定义有 TestNameSpace 命名空间，当这 2 个头文件被引入到 test-namespace.cpp 文件中时，
-    //意味着 TestNameSpace 空间中同时包含 play()、play(int a) 以及 num 这 3 个成员。也就是说，分散在不同文件中的同名命名空间会合并为一个。
+    //可以看到，test-namespace1.h和test-namespace2.h文件中都定义有TestNameSpace命名空间，当这2个头文件被引入到test-namespace.cpp文件中时，
+    //意味着TestNameSpace空间中同时包含play()、play(int a)以及num这3个成员。也就是说，分散在不同文件中的同名命名空间会合并为一个。
     //再次强调，虽然同一项目的不同文件中可以定义相同的命名空间，但必须保证空间中的成员互不相同，否则编译器会报“重定义”错误。
-    //注意，这里的 display() 和 display(int n) 并不会造成重定义，它们互为重载函数
+    //注意，这里的display()和display(int n)并不会造成重定义，它们互为重载函数
     play();
     play(110);
+    play(100, 200); //此方法未被实现，则会报下面错误 undefined reference to `TestNameSpace::play(int, int)'
     LOGE("num = %d", num);
 
     //测试全局变量，静态变量

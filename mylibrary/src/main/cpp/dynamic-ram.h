@@ -7,6 +7,10 @@
 
 using namespace std;
 
+namespace TestNameSpace {
+    void play(int a, int b);
+}
+
 class TestDynamicRam {
 public:
     int a;
