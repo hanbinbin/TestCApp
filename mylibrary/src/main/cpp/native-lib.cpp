@@ -23,6 +23,7 @@
 #include "test-namespace.h"
 #include "test-template.h"
 #include "test-define.h"
+#include "signal-test.h"
 
 
 int al_a;
@@ -268,8 +269,8 @@ Java_cn_huolala_mylibrary_Arithmetic_testNameSpace(JNIEnv *env, jobject /* this 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testTemplate(JNIEnv *env, jobject /* this */) {
     string str = "测试模板";
-    testFunTemplate();
-    testClassTemplate();
+//    testFunTemplate();
+//    testClassTemplate();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -278,5 +279,13 @@ extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testDefine(JNIEnv *env, jobject /* this */) {
     string str = "测试预处理器";
 //    testDefine();
+    return env->NewStringUTF(str.c_str());
+}
+
+//测试信号处理
+extern "C" JNIEXPORT jstring JNICALL
+Java_cn_huolala_mylibrary_Arithmetic_testSignal(JNIEnv *env, jobject /* this */) {
+    string str = "测试信号处理";
+    testSignal();
     return env->NewStringUTF(str.c_str());
 }
