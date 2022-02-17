@@ -167,12 +167,12 @@ void testNameSpace() {
     //测试全局变量，静态变量
     int h; //默认为空，需要自己初始化
     static int i; //默认为0
-    LOGE("b = %d", b);
-    LOGE("c = %d", c);
-    LOGE("d = %f", d);
-    LOGE("e = %f", e);
-    LOGE("str = %s", str.c_str());
-//    LOGE("h = %d", h); //注释报错
-    LOGE("g = %d", g);
-    LOGE("i = %d", i);
+    LOGE("全局变量, 局部变量 b = %d", b);
+    LOGE("全局变量, 局部变量 c = %d", c);
+    LOGE("全局变量, 局部变量 d = %f", d);
+    LOGE("全局变量, 局部变量 e = %f", e);
+    LOGE("全局变量, 局部变量 str = %s", str.c_str());
+//    LOGE("全局变量, 局部变量 h = %d", h); //注释报错
+    LOGE("全局变量, 局部变量 g = %d", g);
+    LOGE("全局变量, 局部变量 i = %d", i);
 }

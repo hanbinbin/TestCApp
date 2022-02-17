@@ -22,6 +22,7 @@
 #include "dynamic-ram.h"
 #include "test-namespace.h"
 #include "test-template.h"
+#include "test-define.h"
 
 
 int al_a;
@@ -183,7 +184,7 @@ Java_cn_huolala_mylibrary_Arithmetic_testTypeDef(JNIEnv *env, jobject /* this */
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testDefineClassObject(JNIEnv *env, jobject /* this */) {
     string str = "C++ 类&对象";
-    defineClassObject();
+//    defineClassObject();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -268,5 +269,13 @@ extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testTemplate(JNIEnv *env, jobject /* this */) {
     string str = "测试模板";
     testTemplate();
+    return env->NewStringUTF(str.c_str());
+}
+
+//测试预处理器
+extern "C" JNIEXPORT jstring JNICALL
+Java_cn_huolala_mylibrary_Arithmetic_testDefine(JNIEnv *env, jobject /* this */) {
+    string str = "测试预处理器";
+    testDefine();
     return env->NewStringUTF(str.c_str());
 }

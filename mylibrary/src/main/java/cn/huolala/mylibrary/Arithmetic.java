@@ -129,6 +129,10 @@ public final class Arithmetic {
         return testTemplate();
     }
 
+    public static String getTestDefine() {
+        return testDefine();
+    }
+
     public static void getTestJavaTraverse() {
         int a_a = 0;
         //c++ 计算一亿次所用时间
@@ -199,4 +203,6 @@ public final class Arithmetic {
     private static native String testNameSpace();
 
     private static native String testTemplate();
+
+    private static native String testDefine();
 }

@@ -33,6 +33,7 @@ add_library( # Specifies the name of the library.
         src/main/cpp/dynamic-ram.cpp
         src/main/cpp/test-namespace.cpp
         src/main/cpp/test-template.cpp
+        src/main/cpp/test-define.cpp
         src/main/cpp/struct.cpp
         src/main/cpp/typedef.cpp
         src/main/cpp/test-class.cpp

@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
                 " getTestException: ${Arithmetic.getTestException()} \n" +
                 " getTestDynamicRAM: ${Arithmetic.getTestDynamicRAM()} \n" +
                 " getTestNameSpace: ${Arithmetic.getTestNameSpace()} \n" +
-                " getTestTemplate: ${Arithmetic.getTestTemplate()}"
+                " getTestTemplate: ${Arithmetic.getTestTemplate()} \n" +
+                " getTestDefine: ${Arithmetic.getTestDefine()}"
         //设置内容，让c++去处理
         findViewById<TextView>(R.id.set_native_content).setOnClickListener {
             Arithmetic.setData(101, 101)
