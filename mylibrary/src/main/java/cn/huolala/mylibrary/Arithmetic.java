@@ -137,6 +137,10 @@ public final class Arithmetic {
         return testSignal();
     }
 
+    public static String getTestMutiThread() {
+        return testMutiThread();
+    }
+
     public static void getTestJavaTraverse() {
         int a_a = 0;
         //c++ 计算一亿次所用时间
@@ -211,4 +215,6 @@ public final class Arithmetic {
     private static native String testDefine();
 
     private static native String testSignal();
+
+    private static native String testMutiThread();
 }

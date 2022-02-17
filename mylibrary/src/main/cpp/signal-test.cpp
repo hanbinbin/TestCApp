@@ -5,8 +5,8 @@
 #include <string>
 #include "signal-test.h"
 #include "log.h"
-#include <csignal>
-#include <unistd.h>
+#include <csignal> //signal()
+#include <unistd.h>//sleep()
 
 using namespace std;
 

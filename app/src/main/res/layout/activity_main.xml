@@ -10,7 +10,7 @@
         android:id="@+id/option_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@id/show_native_content"
+        app:layout_constraintBottom_toTopOf="@id/test_page"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -32,16 +32,28 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="和C++代码交互，获取内容"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/show_native_content"
             app:layout_constraintTop_toBottomOf="@id/set_native_content" />
+
+        <TextView
+            android:id="@+id/show_native_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="展示相关内容"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/get_native_content" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/show_native_content"
+    <Button
+        android:id="@+id/test_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="展示相关内容"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="进入测试页面"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/option_layout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

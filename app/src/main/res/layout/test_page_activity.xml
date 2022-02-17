@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/getStringFromJNI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getStringFromJNI"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/getPointerValueFormJNI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getPointerValueFormJNI"
+                android:textAllCaps="false" />
+
+
+            <Button
+                android:id="@+id/getTestNullPointer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestNullPointer"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/getTestPointerAndArray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestPointerAndArray"
+                android:textAllCaps="false" />
+
+
+            <Button
+                android:id="@+id/getTestPointerToPointer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestPointerToPointer"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/getTestPointerToFunction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestPointerToFunction"
+                android:textAllCaps="false" />
+
+
+            <Button
+                android:id="@+id/getTestFunctionReturnPointer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestFunctionReturnPointer"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/getTestReference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestReference"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/getTestReferenceParam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestReferenceParam"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/getTestFunctionReturnReference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestFunctionReturnReference"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/getTestDateAndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestDateAndTime"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/getTestStruct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestStruct"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/getTestTypeDef"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestTypeDef"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/getTestDefineClassObject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestDefineClassObject"
+                android:textAllCaps="false" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/getTestPolymorphism"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestPolymorphism"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/getTestPackage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestPackage"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/getTestInterface"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestInterface"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/getWriteContentToFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getWriteContentToFile"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/getCharAndString"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getCharAndString"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/getPlaceHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getPlaceHolder"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/getTestException"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestException"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/getTestDynamicRAM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestDynamicRAM"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/getTestNameSpace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestNameSpace"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/getTestTemplate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestTemplate"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/getTestDefine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestDefine"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/getTestSignal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="getTestSignal"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/getTestMutiThread"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="getTestMutiThread"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
