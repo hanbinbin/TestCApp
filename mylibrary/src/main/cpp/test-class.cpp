@@ -170,7 +170,7 @@ string TestClass::email = "全局静态邮箱地址";
  * @param env
  */
 void defineClassObject() {
-    TestClass testClass; //声明testClass对象，其类型为TestClass
+    TestClass testClass; //声明testClass对象，其类型为TestClass; 也可以声明为TestClass testClass{}
     testClass.name = "马六";
     testClass.setAddress("上海市黄浦区");
     testClass.setAge(23);
@@ -184,7 +184,7 @@ void defineClassObject() {
          copy.getMessage().c_str(), copy.getThisPointerAddress());
     playStr(testClass); //触发拷贝构造函数
 
-    TestClass testClassParam("测试名字", 1000); //声明testClass对象，其类型为TestClass
+    TestClass testClassParam("测试名字", 1000); //声明testClass对象，其类型为TestClass；也可以申明为TestClass testClassParam("测试名字", 1000)
     testClassParam.setAddress("上海市黄浦区");
     testClassParam.sex = 1;
     string strParam = testClassParam.getMessage();
