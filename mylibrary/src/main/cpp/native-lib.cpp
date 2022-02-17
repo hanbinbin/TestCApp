@@ -268,7 +268,8 @@ Java_cn_huolala_mylibrary_Arithmetic_testNameSpace(JNIEnv *env, jobject /* this 
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testTemplate(JNIEnv *env, jobject /* this */) {
     string str = "测试模板";
-    testTemplate();
+    testFunTemplate();
+    testClassTemplate();
     return env->NewStringUTF(str.c_str());
 }
 
@@ -276,6 +277,6 @@ Java_cn_huolala_mylibrary_Arithmetic_testTemplate(JNIEnv *env, jobject /* this *
 extern "C" JNIEXPORT jstring JNICALL
 Java_cn_huolala_mylibrary_Arithmetic_testDefine(JNIEnv *env, jobject /* this */) {
     string str = "测试预处理器";
-    testDefine();
+//    testDefine();
     return env->NewStringUTF(str.c_str());
 }

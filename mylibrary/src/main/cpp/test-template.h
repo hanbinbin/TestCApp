@@ -5,6 +5,8 @@
 #ifndef TESTCAPP_TEST_TEMPLATE_H
 #define TESTCAPP_TEST_TEMPLATE_H
 
-void testTemplate();
+void testFunTemplate();
+
+void testClassTemplate();
 
 #endif //TESTCAPP_TEST_TEMPLATE_H

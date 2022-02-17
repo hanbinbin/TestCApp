@@ -3,6 +3,7 @@
 //
 #include <jni.h>
 #include <string>
+#include <vector>
 #include "test-template.h"
 #include "log.h"
 
@@ -29,6 +30,7 @@ using namespace std;
         .
     }
     在这里，type 是占位符类型名称，可以在类被实例化的时候进行指定。您可以使用一个逗号分隔的列表来定义多个泛型数据类型
+
 
  * 可变参数的函数与模板
  * 所谓可变参数指的是函数的参数个数可变，参数类型不定的函数。为了编写能处理不同数量实参的函数，C++11提供了两种主要的方法：
@@ -122,6 +124,8 @@ using namespace std;
  */
 
 /**
+ * 非可变参数的函数模板
+ *
  * typename（类型名字）关键字告诉编译器把一个特殊的名字解释成一个类型。在下列情况下必须对一个 name 使用 typename 关键字：
     1． 一个唯一的name（可以作为类型理解），它嵌套在另一个类型中的。
     2． 依赖于一个模板参数，就是说：模板参数在某种程度上包含这个name。当模板参数使编译器在指认一个类型时产生了误解。
@@ -132,25 +136,43 @@ T Max(T a, T b) {
     return a < b ? b : a;
 }
 
+/**
+ * 非可变参数的函数模板
+ *
+ * @tparam T
+ * @param a
+ */
 template<typename T>
 void printMessage(T a) {
     LOGE("打印消息 = %s", a);
 }
 
+/**
+ * 非可变参数的函数模板
+ *
+ * @tparam T
+ * @tparam L
+ * @param a
+ * @param l
+ * @return
+ */
 template<typename T, typename L>
 L testDiffTypeName(T a, L l) {
     return a < l ? l : a;
 }
 
 /**
- * 为了终止递归，我们还需要定义一个非可变参数的函数模板：
+ * 非可变参数的函数模板
+ *
+ * 为了终止递归，我们还需要定义一个非可变参数的函数模板,名字要与可变参数的函数模板保持一致
  */
-void testDiffTypeName1() {
-
+template<typename T>
+void testDiffTypeName1(T t) {
+    LOGE("非可变参数的函数模板 testDiffTypeName1 打印消息 = %s", t);
 }
 
 /**
- * 可变参数模板
+ * 可变参数函数模板
  * @tparam T
  * @tparam K
  * @param t
@@ -158,13 +180,15 @@ void testDiffTypeName1() {
  */
 template<typename T, typename ...K>
 void testDiffTypeName1(T t, K...k) {
-    LOGE("testDiffTypeName1 打印消息 = %s", t);
+    LOGE("可变参数函数模板 testDiffTypeName1 打印消息 = %s", t);
     testDiffTypeName1(k...);
 }
 
 
 /**
- * 测试可变参数 initializer_list形参
+ * 可变参数函数
+ *
+ * initializer_list形参
  * @param li
  * @return
  */
@@ -177,6 +201,8 @@ string func(initializer_list<string> li) {
 }
 
 /**
+ * 可变参数函数
+ *
  * 省略符形参，此时只能放在最后的位置
  * @param count
  * @param ...
@@ -210,7 +236,10 @@ int add_nums(double doub, int count, ...) {
     return result;
 }
 
-void testTemplate() {
+/**
+ * 测试函数模板
+ */
+void testFunTemplate() {
     int a = 10;
     int b = 20;
     LOGE("T为int类型 Max(%d, %d) = %d", a, b, Max(a, b));
@@ -232,11 +261,82 @@ void testTemplate() {
     string s5 = "第5条测试消息";
     testDiffTypeName1(s1.c_str(), s2.c_str(), s3.c_str(), s4.c_str(), s5.c_str());
 
-    //测试可变参数 initializer_list形参
+    //测试可变参数 initializer_list函数
     initializer_list<string> li{"ceshi", "", "测试", " ", "123"};
     LOGE("string func(initializer_list<string> li) = %s", func(li).c_str());
 
-    //测试省略符形参
+    //测试省略符形参函数
     LOGE("int add_nums(int count, ...) = %d", add_nums(6.45, 4, 1, 2, 3, 4));
+}
+
+template<class T>
+class Stack {
+private:
+    vector<T> elems;     // 元素
+
+public:
+    void push(T const &);      // 入栈
+    void pop();                // 出栈
+    T top() const;             // 返回栈顶元素
+    bool empty() const {       // 如果为空则返回真。
+        return elems.empty();
+    }
+};
+
+template<class T>
+void Stack<T>::push(T const &elem) {
+    // 追加传入元素的副本
+    elems.push_back(elem);
+}
+
+template<class T>
+void Stack<T>::pop() {
+    if (elems.empty()) {
+        throw out_of_range(
+                "Stack<>::pop(): empty stack"); //  out_of_range类继承logic_error类；logic_error继承exception
+    }
+    // 删除最后一个元素
+    elems.pop_back();
+}
+
+template<class T>
+T Stack<T>::top() const {
+    if (elems.empty()) {
+        throw out_of_range("Stack<>::top(): empty stack");
+    }
+    // 返回最后一个元素的副本
+    return elems.back();
+}
+
+/**
+ * 测试类模板
+ */
+void testClassTemplate() {
+    try {
+        Stack<int> intStack;          // int 类型的栈
+        Stack<string> stringStack;    // string 类型的栈
+
+        // 操作 int 类型的栈
+        intStack.push(7);
+        LOGE("获取 intStack栈顶元素 %d", intStack.top());
+
+        //操作 string 类型的栈
+        stringStack.push("start!"); //入栈 1
+        stringStack.push("hello");//入栈 2
+        stringStack.push("world");//入栈 3
+        stringStack.push("end!");//入栈 4
+        LOGE("获取 stringStack栈顶元素 %s", stringStack.top().c_str());
+
+        stringStack.pop();//出栈 1
+        LOGE("获取 stringStack栈顶元素 %s", stringStack.top().c_str());
+        stringStack.pop();//出栈 2
+        LOGE("获取 stringStack栈顶元素 %s", stringStack.top().c_str());
+        stringStack.pop();//出栈 3
+        LOGE("获取 stringStack栈顶元素 %s", stringStack.top().c_str());
+        stringStack.pop();//出栈 4
+        LOGE("获取 stringStack栈顶元素 %s", stringStack.top().c_str());//此处会报异常
+    } catch (exception const &ex) {
+        LOGE("Exception: %s", ex.what());
+    }
 }
 
