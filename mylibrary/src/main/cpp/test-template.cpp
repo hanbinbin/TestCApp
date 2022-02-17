@@ -4,6 +4,7 @@
 #include <jni.h>
 #include <string>
 #include <vector>
+#include <stack>
 #include "test-template.h"
 #include "log.h"
 
@@ -29,14 +30,23 @@ using namespace std;
         .
         .
     }
-    在这里，type 是占位符类型名称，可以在类被实例化的时候进行指定。您可以使用一个逗号分隔的列表来定义多个泛型数据类型
-
+    或者
+    template <typename type> class class-name {
+        .
+        .
+        .
+    }
+    在这里，type 是占位符类型名称，可以在类被实例化的时候进行指定。您可以使用一个逗号分隔的列表来定义多个泛型数据类型。
+    注意：在定义类模板或者函数模板时，typename 和 class 关键字都可以用于指定模板参数中的类型。也就是说，以下两种用法是完全等价的。这在大多数文章中都有提到。
+        * template<typename T> //class or function declaration;
+        * template<class T>   // class or function declaration;
+    最早使用 class 来声明模板参数列表中的类型是为了避免增加不必要的关键字；后来委员会认为这样混用可能造成概念上的混淆才加上了 typename 关键字
 
  * 可变参数的函数与模板
- * 所谓可变参数指的是函数的参数个数可变，参数类型不定的函数。为了编写能处理不同数量实参的函数，C++11提供了两种主要的方法：
- * 如果所有的实参类型相同，可以传递一个名为initializer_list的标准库类型；如果实参的类型不同，我们可以编写可变参数模板。
- * 另外，C++还有一种特殊的省略符形参，可以用它传递可变数量的实参，不过这种一般只用于与C函数交互的接口程序。
- *
+   所谓可变参数指的是函数的参数个数可变，参数类型不定的函数。为了编写能处理不同数量实参的函数，C++11提供了两种主要的方法：
+   如果所有的实参类型相同，可以传递一个名为initializer_list的标准库类型；如果实参的类型不同，我们可以编写可变参数模板。
+   另外，C++还有一种特殊的省略符形参，可以用它传递可变数量的实参，不过这种一般只用于与C函数交互的接口程序。
+
  * 可变参数函数
     1、initializer_list形参
 
@@ -269,7 +279,7 @@ void testFunTemplate() {
     LOGE("int add_nums(int count, ...) = %d", add_nums(6.45, 4, 1, 2, 3, 4));
 }
 
-template<class T>
+template<typename T, typename K>
 class Stack {
 private:
     vector<T> elems;     // 元素
@@ -283,24 +293,24 @@ public:
     }
 };
 
-template<class T>
-void Stack<T>::push(T const &elem) {
+template<typename T, typename K>
+void Stack<T, K>::push(T const &elem) {
     // 追加传入元素的副本
     elems.push_back(elem);
 }
 
-template<class T>
-void Stack<T>::pop() {
+template<typename T, typename K>
+void Stack<T, K>::pop() {
     if (elems.empty()) {
         throw out_of_range(
                 "Stack<>::pop(): empty stack"); //  out_of_range类继承logic_error类；logic_error继承exception
     }
-    // 删除最后一个元素
+    //删除最后一个元素
     elems.pop_back();
 }
 
-template<class T>
-T Stack<T>::top() const {
+template<typename T, typename K>
+T Stack<T, K>::top() const {
     if (elems.empty()) {
         throw out_of_range("Stack<>::top(): empty stack");
     }
@@ -308,13 +318,25 @@ T Stack<T>::top() const {
     return elems.back();
 }
 
+class Foo {
+public:
+    typedef int bar_type;
+};
+
+template<typename T>
+class TestClass {
+public:
+    typename T::bar_type bar; //由于 C++ 允许在类内定义类型别名，且其使用方法与通过类型名访问类成员的方法相同。
+    // 故而，在类定义不可知的时候，编译器无法知晓类似 Type::foo 的写法具体指的是一个类型还是类内成员. 所以此时typename就派上用场了
+};
+
 /**
  * 测试类模板
  */
 void testClassTemplate() {
     try {
-        Stack<int> intStack;          // int 类型的栈
-        Stack<string> stringStack;    // string 类型的栈
+        Stack<int, int> intStack;          // int 类型的栈
+        Stack<string, string> stringStack;    // string 类型的栈
 
         // 操作 int 类型的栈
         intStack.push(7);
@@ -338,5 +360,8 @@ void testClassTemplate() {
     } catch (exception const &ex) {
         LOGE("Exception: %s", ex.what());
     }
+
+    TestClass<Foo> testClass;
+    LOGE("testClass: %d", testClass.bar);
 }
 
