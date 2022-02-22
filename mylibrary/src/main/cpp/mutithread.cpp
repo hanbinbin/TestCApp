@@ -580,6 +580,21 @@ void pause_thread(int n) {
     函数对象
     lambda 表达式
     定义 callable 后，将其传递给 std::thread 构造函数 thread_object。
+
+  * thread::join()
+    当thread::join()函数被调用后，调用它的线程会被block，直到线程的执行被完成。基本上，这是一种可以用来知道一个线程已结束的机制。
+    当thread::join()返回时，OS的执行的线程已经完成，C++线程对象可以被销毁; std::thread 对象再次进行 join() 函数调用时，就会导致程序中断
+
+  * thread::detach()
+    detached 线程也被称为守护/后台进程。对线程进行 detached（翻译成分离？）操作，需要使用对 std::thread 对象调用 std::detach()。
+    调用 detach() 会使得 std::thread 对象不与其他任何的线程关联。在这种情况下，再次调用 detach() 会中断程序。
+
+  * 总结：
+    1.在调用 join() 或者 detach() 之前，我们每次都应该检查线程是否是 join-able 的。为true才执行者两个操作
+    2.永远不要忘记在有关联的执行线程的 std::thread 对象上调用 join 或者 detach
+    3.同样在异常情况下，我们也不能忘记调用 join() 或者 detach()。
+
+  *
  */
 void testStdThread() {
 //    lambda:
