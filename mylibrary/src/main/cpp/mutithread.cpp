@@ -5,9 +5,12 @@
 #include <string>
 #include "mutithread.h"
 #include "log.h"
-// 必须的头文件
+// 必须的头文件 c++ 11 之前创建线程需要的
 #include <pthread.h>
 #include <unistd.h>
+//c++ 11之后创建线程
+#include <thread>
+
 
 using namespace std;
 
@@ -390,30 +393,30 @@ void testUniquePtr() {
     // Foo 的实例会在离开作用域时被销毁
 }
 
-struct A;
-struct B;
+struct AA;
+struct BB;
 
-struct A {
-    std::weak_ptr<B> pointer; //防止循环应用
+struct AA {
+    std::weak_ptr<BB> pointer; //防止循环应用
 
-    A() {
-        LOGE("A 被创建");
+    AA() {
+        LOGE("AA 被创建");
     }
 
-    ~A() {
-        LOGE("A 被销毁");
+    ~AA() {
+        LOGE("AA 被销毁");
     }
 };
 
-struct B {
-    std::weak_ptr<A> pointer; //防止循环应用
+struct BB {
+    std::weak_ptr<AA> pointer; //防止循环应用
 
-    B() {
-        LOGE("B 被创建");
+    BB() {
+        LOGE("BB 被创建");
     }
 
-    ~B() {
-        LOGE("B 被销毁");
+    ~BB() {
+        LOGE("BB 被销毁");
     }
 };
 
@@ -478,8 +481,8 @@ void testWeakPtr() {
         LOGE("weak2 is expired");
 
     //循环引用问题：
-    auto a = std::make_shared<A>();
-    auto b = std::make_shared<B>();
+    auto a = std::make_shared<AA>();
+    auto b = std::make_shared<BB>();
     a->pointer = b;
     b->pointer = a;
 }
@@ -498,6 +501,9 @@ void run(void *argus) {
    默认情况下创建的线程是可连接的，一个可连接的线程是可以被其他线程收回资源和杀死的，并且它不会主动释放资源，必须等待其他线程来收回其资源。
    因此我们要在主线程使用pthread_join函数，该函数是一个阻塞函数，当它返回时，所等待的线程资源也就释放了。
    再次强调，如果是可连接线程，当线程函数自己返回结束时，或调用pthread_exit结束时都不会释放线程所占用的堆栈和线程描述符（总计八千多个字节），必须调用pthread_join且返回后，这些资源才会被释放。
+
+ * 注意：
+   如果设置为 PTHREAD_CREATE_JOINABLE，就继续用 pthread_join() 来等待和释放资源，否则会内存泄露。
  *
  */
 void createDetached() {
@@ -519,19 +525,136 @@ void createDetached() {
         LOGE("pthread_create failed: %d", res);
 
     void *agus;
-    pthread_join(thread_id, &agus); //因为上面线程是可分离的，pthread_join不起作用,只对可连接状态的线程起作用
+    pthread_join(thread_id,
+                 &agus); //因为上面线程是可分离的，pthread_join不起作用,只对可连接状态的线程起作用; 如果线程创建时被定义为可分离的，则它永远也不能被连接。
+    // 可以在这之前调用 pthread_attr_destroy(&thread_attr); 删除属性，并等待其他线程
+
     LOGE("子线程完成以后传过来的数据: %d", *((int *) agus));
 }
 
-void testMutiThread() {
-    //指针函数
+// 一个虚拟函数
+void foo(int Z) {
+    for (int i = 0; i < Z; i++) {
+        LOGE("线程使用函数指针作为可调用参数 %d", i);
+    }
+}
+
+// 可调用对象
+class thread_obj {
+public:
+    void operator()(int x) {
+        for (int i = 0; i < x; i++)
+            LOGE("线程使用函数对象作为可调用参数 %d", i);
+    }
+};
+
+std::thread::id main_thread_id = std::this_thread::get_id();
+
+/**
+ * 判断是否在主线程
+ */
+void hello(char *tag) {
+    LOGE("Hello Concurrent World %s", tag);
+    if (main_thread_id == std::this_thread::get_id())
+        LOGE("This is the main thread. %s", tag);
+    else
+        LOGE("This is not the main thread. %s", tag);
+}
+
+/**
+ * 线程暂停时间
+ * @param n
+ */
+void pause_thread(int n) {
+    std::this_thread::sleep_for(std::chrono::seconds(n));
+    LOGE("pause of %d seconds ended", n);
+}
+
+/**
+ * std::thread
+   C++ 11 之后添加了新的标准线程库 std::thread，std::thread 在 <thread> 头文件中声明，因此使用 std::thread 时需要包含 在 <thread> 头文件
+
+   std::thread thread_object(callable)
+   一个可调用对象可以是以下三个中的任何一个：
+    函数指针
+    函数对象
+    lambda 表达式
+    定义 callable 后，将其传递给 std::thread 构造函数 thread_object。
+ */
+void testStdThread() {
+//    lambda:
+//    // 定义简单的lambda表达式,没有参数的
+//    auto basicLambda = [] { cout << "Hello, world!" << endl; };
+//    //调用
+//   basicLambda();   // 输出：Hello, world!
+
+//    // 指明返回类型
+//    auto add = [](int a, int b) -> int { return a + b; };
+//    // 自动推断返回类型
+//    auto multiply = [](int a, int b) { return a * b; };
+//
+//    int sum = add(2, 5);   // 输出：7
+//    int product = multiply(2, 5);  // 输出：10
+
+
+    // 函数指针
+    thread th1(foo, 3);
+
+    // 函数对象
+    thread_obj threadObj;
+    thread th2(threadObj, 3);
+
+    // 定义 Lambda 表达式
+    auto f = [](int x) {
+        for (int i = 0; i < x; i++)
+            LOGE("线程使用 lambda 表达式作为可调用参数 %d", i);
+    };
+
+    // 线程通过使用 lambda 表达式作为可调用的参数
+    thread th3(f, 3);
+
+    // 等待线程完成
+    // 等待线程 t1 完成
+    th1.join();
+
+    // 等待线程 t2 完成
+    th2.join();
+
+    // 等待线程 t3 完成
+    th3.join();
+
+    char tag_t[] = "t";
+    std::thread t(hello, tag_t);
+    LOGE("可以并发执行多少个线程 = %d", t.hardware_concurrency());//可以并发执行多少个(不准确)
+    LOGE("可以并发执行多少个线程 = %d", t.native_handle());//可以并发执行多少个(不准确)
+    t.join();
+    char tag_a[] = "a";
+    std::thread a(hello, tag_a);
+    a.detach();
+    std::thread threads[5]; // 默认构造线程
+
+    LOGE("Spawning 5 threads...");
+    for (int i = 0; i < 5; ++i) {
+        threads[i] = std::thread(pause_thread, i + 1);   // move-assign threads
+    }
+    LOGE("Done spawning threads. Now waiting for them to join:");
+    for (auto &thread : threads) {
+        thread.join();
+    }
+    LOGE("All threads joined!");
+}
+
+void testMutiThread() {    //指针函数
 //    testFunPointer();
 
     //多线程
 //    testThread();
 //    testThreadJoin();
 //    testTwoThreadJoin();
-    createDetached();
+//    createDetached();
+
+    //std::thread
+    testStdThread();
 
     //智能指针
 //    testSharedPtr();

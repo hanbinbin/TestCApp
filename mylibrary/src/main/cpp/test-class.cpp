@@ -184,7 +184,8 @@ void defineClassObject() {
          copy.getMessage().c_str(), copy.getThisPointerAddress());
     playStr(testClass); //触发拷贝构造函数
 
-    TestClass testClassParam("测试名字", 1000); //声明testClass对象，其类型为TestClass；也可以申明为TestClass testClassParam("测试名字", 1000)
+    TestClass testClassParam("测试名字",
+                             1000); //声明testClass对象，其类型为TestClass；也可以申明为TestClass testClassParam("测试名字", 1000)
     testClassParam.setAddress("上海市黄浦区");
     testClassParam.sex = 1;
     string strParam = testClassParam.getMessage();
@@ -238,7 +239,8 @@ void defineClassObject() {
     G g; //内部定义了一个int类型的成员变量,一个char类型的成员变量
 
     D *abc; //定义指针变量 abc
-    LOGE("sizeof(abc) %d", sizeof(abc)); //我手机上是8字节(一个指针占用字节数)；一个指针占用的字节数就可以推出当前系统位数：8*8=64 位的操作系统，因为指针能够指向任一内存地址
+    LOGE("sizeof(abc) %d",
+         sizeof(abc)); //我手机上是8字节(一个指针占用字节数)；一个指针占用的字节数就可以推出当前系统位数：8*8=64 位的操作系统，因为指针能够指向任一内存地址
     //一个Class对象占用内存空间：
 //    *非静态成员变量总和。
 //    *加上编译器为了CPU计算，作出的数据对齐处理。
@@ -263,6 +265,15 @@ void defineClassObject() {
     //重载运算符，调用方式：对象名 重载运算符（参数）
     LOGE("调用TestClass的重载运算符\"+\" %d",
          (testClass + testClassParam)); //调用testClass下面的重载运算符"+"，函数参数为TestClass testClassParam；
+
+    //创建多个对象
+    Rectangle rectangle[6];
+    for (int i = 0; i < 6; i++) {
+        rectangle[i] = Rectangle(i + 1, i + 2);
+    }
+    for (auto &i : rectangle) {
+        LOGE("area %d", i.area());
+    }
 }
 
 /**
