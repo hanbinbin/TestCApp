@@ -27,7 +27,7 @@ using namespace std;
      例如，我们可以定义一个指向 double 类型的指针，然后请求内存，该内存在执行时被分配。我们可以按照下面的语句使用 new 运算符来完成这点：
 
      double* pvalue  = NULL; // 初始化为 null 的指针
-     pvalue  = new double;   // 为变量请求内存
+     pvalue  = new double;   // 为变量请求内存；  pvalue在栈上面，存储的值是new double的值在堆上面的存储地址，
 
      如果自由存储区已被用完，可能无法成功分配内存。所以建议检查 new 运算符是否返回 NULL 指针，并采取以下适当的操作：
         double* pvalue  = NULL;
