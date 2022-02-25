@@ -53,7 +53,31 @@ void testPointer() {
     //strstr(s1, s2); 返回一个指针，指向字符串 s1 中字符串 s2 的第一次出现的位置。
 }
 
-//空指针
+/**
+ * 1 野指针
+    1.1定义及产生原因
+        是指向“垃圾”内存（不可用内存）的指针。
+        产生原因： 指针创建时未初始化。指针变量刚被创建时不会自动成为NULL指针，它会随机指向一个内存地址。
+
+    int *p;   //此时p为野指针
+    1.2 解决方法
+        指针创建便初始化。
+
+    int *p=NULL;
+
+ * 2 悬垂指针
+    2.1 定义及产生原因
+        指针所指向的对象已经被释放或者回收了，但是指向该对象的指针没有作任何的修改，仍旧指向已经回收的内存地址。 此类指针称为垂悬指针。
+
+    2.2 解决方法
+        释放内存后，将指针设为NULL；或者使用弱引用指针
+        #include <stdlib.h>
+        void func(){
+             char *dp = malloc(A_CONST);
+             free(dp);        dp now becomes a dangling pointer
+             dp = NULL;       dp is no longer dangling
+        }
+ */
 void nullPointer() {
     int *local_pointer = NULL; //NULL 指针是一个定义在标准库中的值为零的常量。
     LOGE("name=%s testNullPointer=%p", "hbb", local_pointer); //显示为0x0 里面

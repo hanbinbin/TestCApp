@@ -178,7 +178,7 @@ void testThread() {
     //向线程传递参数
     //这个实例演示了如何通过结构传递多个参数。您可以在线程回调中传递任意的数据类型，因为它指向 void
 //    pthread_t tIds[THREAD_NUMS];
-//    TestData data[THREAD_NUMS];
+//    TestData data[THREAD_NUMS]; //如果使用局部变量可能会造成悬垂指针问题
     for (int i = 0; i < THREAD_NUMS; i++) {
         LOGE("testThread() : creating thread, %d", i);
         data[i].threadId = i;
@@ -426,7 +426,7 @@ struct BB {
 
  * 利用weak_ptr，我们可以解决常见的空悬指针问题以及循环引用问题。
 
- * 空悬指针问题：
+ * 悬垂指针(迷途指针)问题：
    有两个指针p1和p2，指向堆上的同一个对象Object，p1和p2位于不同的线程中。假设线程A通过p1指针将对象销毁了（尽管把p1置为了NULL），那p2就成了空悬指针。这是一种典型的C/C++内存错误
    weak_ptr不控制对象的生命期，但是它知道对象是否还活着。如果对象还活着，那么它可以提升为有效的shared_ptr（提升操作通过lock()函数获取所管理对象的强引用指针）；
    如果对象已经死了，提升会失败，返回一个空的shared_ptr
@@ -440,7 +440,7 @@ struct BB {
    如果程序在运行过程中出现了循环引用，还是会造成内存泄漏的。因此，不要认为只要使用了智能指针便能杜绝内存泄漏。
  */
 void testWeakPtr() {
-    // 空悬指针问题：
+    // 悬垂指针问题：
     // OLD, problem with dangling pointer
     // PROBLEM: ref will point to undefined data!
 
