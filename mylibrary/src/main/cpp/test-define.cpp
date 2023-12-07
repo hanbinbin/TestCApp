@@ -94,8 +94,10 @@ void testDefine() {
 
 #if SOMETHING >= 100
     //...
+     LOGE("SOMETHING >= 100 true");
 #else
     //...
+    LOGE("SOMETHING >= 100 false");
 #endif
 
 

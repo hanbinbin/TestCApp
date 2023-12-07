@@ -135,6 +135,9 @@ public:
 
     }
 
+    //当前类没有实现该方法，可以在其他地方来实现
+    void print_impl(string name);
+
     void print(int name) {
 
     }

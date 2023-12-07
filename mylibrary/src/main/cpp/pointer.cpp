@@ -6,6 +6,7 @@
 #include <string>
 #include "pointer.h"
 #include "log.h"
+#include "common.h"
 
 using namespace std;
 
@@ -43,6 +44,8 @@ void testPointer() {
     LOGE("char1 = %s length = %d", char1, strlen(char1)); //拼接之后，char1的结果及长度
     LOGE("strcat(char1,char2) = %s", strcat(char1, char2)); //拼接
     LOGE("char1 = %s length = %d", char1, strlen(char1)); //再次拼接之后，char1的结果及长度
+
+    LOGE("array length = %d", sizeof(array)/ sizeof(array[0])); //array 长度
     //strcpy(s1, s2); 复制字符串 s2 到字符串 s1。
     //strcat(s1, s2); 连接字符串 s2 到字符串 s1 的末尾。连接字符串也可以用 + 号 eg：string str1 = "runoob";
     //string str2 = "google";
@@ -51,6 +54,22 @@ void testPointer() {
     //strcmp(s1, s2); 如果 s1 和 s2 是相同的，则返回 0；如果 s1<s2 则返回值小于 0；如果 s1>s2 则返回值大于 0。
     //strchr(s1, ch); 返回一个指针，指向字符串 s1 中字符 ch 的第一次出现的位置。
     //strstr(s1, s2); 返回一个指针，指向字符串 s1 中字符串 s2 的第一次出现的位置。
+
+    //测试指针赋值
+    int i = 1;
+    int *point = &i;
+    LOGE("name=%s point=%d", "hbb", *point);
+    //通过对指针赋值，即通过指针将其指向的值进行修改（ *point = 2,通过指针point对i的值修改）
+    *point = 2;
+    LOGE("name=%s point=%d", "hbb", *point);
+    LOGE("name=%s i=%d", "hbb", i);
+    i = 5;
+    LOGE("name=%s point=%d", "hbb", *point);
+    int j = 10;
+    //对指针赋值，即修改指针指向的地址（point = &j，将指针point重新指向j）
+    point = &j;
+    LOGE("name=%s point=%d", "hbb", *point);
+    //总结：对指针操作要保持类型的统一（例如上述代码中 i, j, *point 都是int类型）
 }
 
 /**

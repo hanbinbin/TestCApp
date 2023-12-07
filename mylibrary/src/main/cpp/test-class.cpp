@@ -58,6 +58,27 @@ TestClass::TestClass(const TestClass &obj) {
     LOGE("调用了拷贝构造函数 %s", name.c_str());
 }
 
+void TestClass::print_impl(string test_name) {
+    LOGE("实现TestClass::print_impl()方法 %s", test_name.c_str());
+}
+
+/**
+ * 定义TestClass::getMessage()成员函数
+ * @return
+ */
+string TestClass::getMessage() const {
+    string str;
+    str.append("姓名：")
+            .append(name)
+            .append("\t年龄：")
+            .append(to_string(age))
+            .append("\t性别：")
+            .append(to_string(sex))
+            .append("\t地址：")
+            .append(address);
+    return str;
+}
+
 /**
  * 友元函数
  *
@@ -136,23 +157,6 @@ inline int max(int a, int b) {
     return a > b ? a : b;
 }
 
-/**
- * 定义TestClass::getMessage()成员函数
- * @return
- */
-string TestClass::getMessage() const {
-    string str;
-    str.append("姓名：")
-            .append(name)
-            .append("\t年龄：")
-            .append(to_string(age))
-            .append("\t性别：")
-            .append(to_string(sex))
-            .append("\t地址：")
-            .append(address);
-    return str;
-}
-
 TestClass playStr(TestClass testClass) {
     LOGE("playStr name %s", testClass.name.c_str());
     return testClass; //触发拷贝构造函数
@@ -177,6 +181,7 @@ void defineClassObject() {
     testClass.sex = 1;
     string str = testClass.getMessage();
     TestClass::email = "马六的邮箱";
+    testClass.print_impl("测试打印信息");
     LOGE("testClass.getMessage= %s :  testClass.getThisPointerAddress = %p", str.c_str(),
          testClass.getThisPointerAddress());
     TestClass copy = testClass;//触发拷贝构造函数
@@ -271,7 +276,7 @@ void defineClassObject() {
     for (int i = 0; i < 6; i++) {
         rectangle[i] = Rectangle(i + 1, i + 2);
     }
-    for (auto &i : rectangle) {
+    for (auto &i: rectangle) {
         LOGE("area %d", i.area());
     }
 }

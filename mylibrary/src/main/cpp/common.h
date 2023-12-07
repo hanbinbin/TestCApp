@@ -39,4 +39,8 @@ Person getStructPerson();
 
 void printMessage(Person *person);
 
+//模板函数
+template<class T>
+int length(T &arr);
+
 #endif //_TEST_H_

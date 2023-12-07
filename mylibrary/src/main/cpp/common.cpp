@@ -61,7 +61,7 @@ Person getStructPerson() {
 }
 
 
-int length = 7;
+int length_s = 7;
 double doubleArray[] = {12.65, 34.67, 45, 23.0, 1.34, 56.09, 32.48};
 
 /**
@@ -79,7 +79,7 @@ double &getValue(int i) {
 //    return temp;
 
     //第二种用法
-    double temp = (i > length - 1) ? 0.0 : doubleArray[i];
+    double temp = (i > length_s - 1) ? 0.0 : doubleArray[i];
     double &result = temp;
     return result; //虽然报黄，但是没有问题
 }
@@ -171,4 +171,12 @@ int *getSingleRandom() {
     int random = rand();
     p = &random;
     return p;
+}
+
+//模板函数
+template<class T>
+int length(T &arr) {
+    //cout << sizeof(arr[0]) << endl;
+    //cout << sizeof(arr) << endl;
+    return sizeof(arr) / sizeof(arr[0]);
 }
