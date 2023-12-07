@@ -56,7 +56,7 @@ Java_cn_huolala_mylibrary_Arithmetic_jniGetTestContent(JNIEnv *env, jobject /* t
     a.u.y = 5;
     a.u.z = 6;
     a.k = 0; //覆盖掉第一个int空间值
-    printf("%d %d %d %d\n", a.u.x, a.u.y, a.u.z, a.k);
+    LOGE("%d %d %d %d\n", a.u.x, a.u.y, a.u.z, a.k);
     return 12;
 }
 

@@ -120,5 +120,5 @@ target_link_libraries(native-lib
 #6.
 #在 CMake 构建脚本中使用 target_link_libraries() 命令，将预构建库与你本地库相关联：
 target_link_libraries(native-lib
-        app-glue
+        ${app-glue}
         ${log-lib})
